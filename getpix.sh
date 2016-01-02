@@ -5,5 +5,5 @@
 
 campi="neatherd"
 
-scp $campi:/home/st33v/pix/*.jpg /home/st33v/cams/$campi/.
-ssh $campi "rm /home/st33v/pix/*.jpg"
+scp $campi:/home/st33v/pix/*.jpg /home/st33v/cams/$campi/. 2>/dev/null
+ssh $campi "rm /home/st33v/pix/*.jpg" 2>/dev/null
