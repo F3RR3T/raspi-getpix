@@ -1,1 +1,10 @@
-/etc/systemd/system/getpix.timer
+[Unit]
+Description= check every minute
+
+[Timer]
+Persistent=true
+OnBootSec=1min
+OnCalendar=minutely
+
+[Install]
+WantedBy=timers.target

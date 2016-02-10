@@ -1,1 +1,10 @@
-/etc/systemd/system/getpix.service
+[Unit]
+Description=Retrieve photos from cam raspis, situated within LAN
+
+[Service]
+Type=simple
+User=st33v
+# prefix call to script with '-' to accept nonzero ('failed') exit status
+# I woulod prefer to know how to prevent the 'failure' in the first place.
+ExecStart=-/usr/local/bin/getpix.sh
+
