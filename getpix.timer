@@ -4,7 +4,7 @@ Description= check every minute
 [Timer]
 Persistent=true
 OnBootSec=1min
-OnCalendar=minutely
+OnCalendar=*:0,15,30,45
 
 [Install]
 WantedBy=timers.target
