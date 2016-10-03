@@ -11,6 +11,8 @@ Variable subsitution doesn't work in systemd.
 Network topology
 ----------------
 
+![Network diagram showing how images get uplaoded](farmcam.png)
+
 ### Originating (cam-equipped) hosts
 
 ### Agreggator and web server
