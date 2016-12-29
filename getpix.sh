@@ -5,6 +5,7 @@
 
 ########### Constants ##################
 campi="neatherd"                # hard-code source hostname for the moment
+wanWebServer="f3rr3t.com"
 sourcedir="/home/st33v/pix"    # where the image is on the source computer (i.e. $campi)
 thisdir="/home/st33v/cams"     # this directory (on this computer)
 threshold="2000"                # minimum value of average pixel brightness. Tests if pic is too dark
@@ -53,7 +54,9 @@ fi
 convert ${newpic} -unsharp 1.5x1+0.7+0.02 temp.jpg
 convert temp.jpg -resize 33% -quality 70 ${newpic}
 rm temp.jpg
-   
-. ~/cams/sendpix.sh
+
+scp /home/st33v/cams/$campi/$newpic $wanWebServer:/home/st33v/farm/cam/$campi/.
+
+#. ~/cams/sendpix.sh
 
 #exit(0)     # force success exit code for fussy systemd
