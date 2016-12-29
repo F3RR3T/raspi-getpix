@@ -1,5 +1,5 @@
 [Unit]
-Description= check every minute
+Description= check every quarter-hour
 
 [Timer]
 Persistent=true
