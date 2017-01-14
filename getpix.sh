@@ -24,25 +24,25 @@ cd ${thisdir}
 for campi in "${camz[@]}"
 do
     # record the latest photo BEFORE we look for a new one
-    newestpicfunc; oldpic=${newestpic}
-     echo "Before: oldpic is ${oldpic}"
+   # newestpicfunc; oldpic=${newestpic}
+   #  echo "Before: oldpic is ${oldpic}"
 
     # Copy any photos from the camera-equipped source ($campi)
     # This script is on a rapid timer so there should only ever be one photo (if any).
-    scp ${campi}:${sourcedir}/*.jpg ${campi}/. 2>/dev/null
+   # scp ${campi}:${sourcedir}/*.jpg ${campi}/. 2>/dev/null
     # Delete the photo from the source computer.
-    ssh $campi "rm ${sourcedir}/*.jpg" 2>/dev/null
+   # ssh $campi "rm ${sourcedir}/*.jpg" 2>/dev/null
     # cp ${oldpic} ${thisdir}${campi}/zzz.jpg   # testing 
 
     # get the filename of the NEW photo, it there is one
-    newestpicfunc; newpic="$newestpic"
-    echo "After: newpic is ${newpic}"
+   # newestpicfunc; newpic="$newestpic"
+   # echo "After: newpic is ${newpic}"
 
-    if [[ "$oldpic" == "$newpic" ]] ; then 
+    #if [[ "$oldpic" == "$newpic" ]] ; then 
     #     echo no new photos so exit now
         #exit 0
-        continue
-    fi
+     #   continue
+   # fi
 
     # NeatHerd doesn't have enough RAM to perform image processing, so let's try it on STAN
 
@@ -66,6 +66,9 @@ do
     echo "/home/st33v/cams/$newpic"
     echo "$wanWebServer:/home/st33v/farm/cam/$campi/"
     scp /home/st33v/cams/$newpic $wanWebServer:/home/st33v/farm/cam/$campi/.
+    # bump parent directory to provoke path service
+    touch bump.txt
+    scp bump.txt $wanWebServer:/home/st33v/farm/cam/.
 done
 
 #exit(0)     # force success exit code for fussy systemd
