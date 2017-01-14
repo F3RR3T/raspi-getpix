@@ -1,0 +1,10 @@
+# SJP 14 Jan 2017
+[Unit]
+Description=Triggers webcam-pix editing and copy to webserver
+
+[Path]
+PathModified=/home/st33v/cams/
+
+[Install]
+WantedBy=multi-user.target
+
