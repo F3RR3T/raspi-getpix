@@ -21,7 +21,7 @@ for campi in "${camz[@]}"
 do
     # filename of the latest photo 
     newpic=$(ls "$campi"/*.jpg -t 2>/dev/null | head -1)
-    echo newpic=$newpic
+    # echo newpic=$newpic
 
     # Is the newest pic older than the marker we placed previously?
     if [ -e "$campi" ]; then
