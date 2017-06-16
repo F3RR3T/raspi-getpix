@@ -32,7 +32,10 @@ do
     # Check to see if the pic is too dark (i.e. taken at night)
     mean=$(identify -format %[mean] ${newpic} | sed s/[.].*//)
     # echo "mean is $mean"
-    # too dark (nighttime)
+    if [ "${campi}" -eq "lucerne" ] ; then
+        threshold=6000      # shocking hack to compensate for new cam type
+    fi
+    # Test to see if it is too dark (nighttime)
     if [[ "${mean}" -lt "${threshold}" ]] ; then
         rm $newpic
      #   echo mean of $mean is too low. It is nighttime.
