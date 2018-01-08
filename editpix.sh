@@ -5,6 +5,7 @@
 ########### Constants ##################
 web="example.com:/path/to/remote/camrootdir"      # web server. configured in paths.config
 thisdir="/path/to/cams"     # this directory (on this computer) Configured in paths.config
+camlist="cam1 cam2 and_so_on"  # cams to monitor
 if [ -e /usr/local/share/editpix/paths.config ]; then
     . /usr/local/share/editpix/paths.config
 else echo "paths.config does not exist, see readme"; exit 1
@@ -12,7 +13,7 @@ fi
 ########### end Consts ################
 
 # cam names in an array:
-declare -a camz=(neatherd lucerne)
+declare -a camz=(${camlist})
 
 cd ${thisdir}               # root directory for uploaded pix
 
