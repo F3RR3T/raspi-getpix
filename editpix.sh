@@ -9,7 +9,6 @@ if [ -e /usr/local/share/editpix/paths.config ]; then
     . /usr/local/share/editpix/paths.config
 else echo "paths.config does not exist, see readme"; exit 1
 fi
-threshold="2000"     # minimum value of average pixel brightness. Tests if pic is too dark
 ########### end Consts ################
 
 # cam names in an array:
@@ -19,22 +18,28 @@ cd ${thisdir}               # root directory for uploaded pix
 
 for campi in "${camz[@]}"
 do
+    threshold=2000     # minimum value of average pixel brightness. Tests if pic is too dark
+    if [ "${campi}" = "lucerne" ] ; then
+        threshold=6000      # shocking hack to compensate for new cam type
+    fi
+    
     # filename of the latest photo 
     newpic=$(ls "$campi"/*.jpg -t 2>/dev/null | head -1)
     # echo newpic=$newpic
 
-    # Is the newest pic older than the marker we placed previously?
-    if [ -e "$campi" ]; then
-        if [ "$newpic" -ot mark-"$campi" ]; then continue; fi
+    # Is there a 'mark' file for this camera?
+    if [ -e mark-${campi} ]; then
+        # Is the newest pic older than (-ot) the marker we placed previously?
+        if [ "$newpic" -ot mark-"$campi" ]; then 
+            continue    # exit this iteration of the FOR loop.
+        fi
     else
         touch mark-$campi  # should only happen on the first ever execution
     fi
+
     # Check to see if the pic is too dark (i.e. taken at night)
     mean=$(identify -format %[mean] ${newpic} | sed s/[.].*//)
     # echo "mean is $mean"
-    if [ "${campi}" = "lucerne" ] ; then
-        threshold=6000      # shocking hack to compensate for new cam type
-    fi
     # Test to see if it is too dark (nighttime)
     if [[ "${mean}" -lt "${threshold}" ]] ; then
         rm $newpic
@@ -49,14 +54,12 @@ do
 
     # Create a marker file with the name of the webcam, so next time we can
     # check to see if a new photo is present for that camera; the PATH
-    # may have been triggered by a phot from another camera.
+    # may have been triggered by a photo from another camera.
     touch mark-$campi
     # upload latest pic to web server
-#    echo "/home/st33v/cams/$newpic"
-#    echo "$web:/home/st33v/farm/cam/$campi/"
-    scp  transfer.jpg $web/$campi/.
+    scp  transfer.jpg ${web}/${campi}/.
     touch bump-$(hostname)
-    scp bump-$(hostname) $web/.
+    scp bump-$(hostname) ${web}/.
     rm transfer.jpg
 done
 #exit(0)     # force success exit code for fussy systemd
