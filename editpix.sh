@@ -62,5 +62,9 @@ do
     touch bump-$(hostname)
     scp bump-$(hostname) ${web}/.
     rm transfer.jpg
+
+    # cleanup any empty directories (such as when files are swept by another process)
+    find ${campi}/. -type d -empty -delete
+        # but DON'T delete the cam directories themselves. The cams expect them to exist.
 done
 #exit(0)     # force success exit code for fussy systemd
