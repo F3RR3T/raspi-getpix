@@ -11,8 +11,8 @@ thisdir="/path/to/cams"     # this directory (on this computer) Configured in pa
 # cam names in an array:
 declare -a camz=(cam1 cam2 cam3...)
 
-if [ -e /usr/local/share/editpix/paths.config ]; then
-    . /usr/local/share/editpix/paths.config
+if [ -e /usr/local/share/paths.config ]; then
+    . /usr/local/share/paths.config
 else echo "paths.config does not exist, see readme"; exit 1
 fi
 ########### end Consts ################
