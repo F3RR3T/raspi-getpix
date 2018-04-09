@@ -3,17 +3,20 @@
 # SJP 30 Dec 2015 V1 (Copy and process photos from a cam-equipped raspi)
 
 ########### Constants ##################
+# These variables are defined in a local file "paths.config". The follwoing assignments
+# show the format for the variables.
 web="example.com:/path/to/remote/camrootdir"      # web server. configured in paths.config
 thisdir="/path/to/cams"     # this directory (on this computer) Configured in paths.config
-camlist="cam1 cam2 and_so_on"  # cams to monitor
+
+# cam names in an array:
+declare -a camz=(cam1 cam2 cam3...)
+
 if [ -e /usr/local/share/editpix/paths.config ]; then
     . /usr/local/share/editpix/paths.config
 else echo "paths.config does not exist, see readme"; exit 1
 fi
 ########### end Consts ################
 
-# cam names in an array:
-declare -a camz=(${camlist})
 
 cd ${thisdir}               # root directory for uploaded pix
 
